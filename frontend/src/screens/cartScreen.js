@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useLocation, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap";
 
-import { addToCart } from "../actions/cartAction";
+import { addToCart, removeFromCart } from "../actions/cartAction";
 
 const CartScreen = () => {
    const location = useLocation();
@@ -12,6 +12,7 @@ const CartScreen = () => {
    const productId = params.id;
    const cart = useSelector((state) => state.cart);
    const { cartItems } = cart;
+   const [qale, setqale] = useState(cartItems);
 
    const dispatch = useDispatch();
    const qty = location.search ? Number(location.search.split("=")[1]) : 1;
@@ -23,12 +24,12 @@ const CartScreen = () => {
       //   console.log(productId,qty);
    }, [dispatch, productId, qty]);
 
-   const removeHandler = async () => {
-      console.log("remove");
+   const removeHandler = async (id) => {
+      dispatch(removeFromCart(id));
    };
-   const checkoutHandler=()=>{
-    console.log("checkout");
-   }
+   const checkoutHandler = () => {
+      console.log("checkout");
+   };
    return (
       <Row>
          <Col md={8}>
@@ -89,7 +90,12 @@ const CartScreen = () => {
                      {cartItems.reduce((a, b) => a + b.price * b.qty, 0).toFixed(2)}
                   </ListGroup.Item>
                </ListGroup>
-               <Button onClick={checkoutHandler} type="button" className="btn-block" disabled={cartItems.length === 0}>
+               <Button
+                  onClick={checkoutHandler}
+                  type="button"
+                  className="btn-block"
+                  disabled={cartItems.length === 0}
+               >
                   checkout
                </Button>
             </Card>

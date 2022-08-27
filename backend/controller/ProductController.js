@@ -1,6 +1,6 @@
 const productModel = require("../models/ProductModel");
 const AppError = require("../utils/appError");
-const catchAsync = require("../utils/catchUtil");
+const catchAsync = require("../utils/catchError");
 
 const AllProduct = catchAsync(async (req, res, next) => {
    try {

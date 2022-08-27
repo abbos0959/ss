@@ -6,7 +6,7 @@ import { Header } from "./components/Header";
 import { HomeScreen } from "./screens/HomeScreen";
 import { ProductScreen } from "./screens/productScreen";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import  Cart  from "./screens/cartScreen";
+import Cart from "./screens/cartScreen";
 
 function App() {
    return (
